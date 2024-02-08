@@ -35,7 +35,7 @@ public class QuizAPIParser {
         StringBuilder sb = new StringBuilder("https://opentdb.com/api.php?amount=");
         Random random = new Random();
         numberOfQuestions = (numberOfQuestions.equals("random")) ?
-            String.valueOf(random.nextInt(((50 - 5) + 1) + 5)) : numberOfQuestions;
+            String.valueOf(random.nextInt(((15 - 5) + 1) + 5)) : numberOfQuestions;
         sb.append(numberOfQuestions);
 
         List<String> tempList = getCategoryList()

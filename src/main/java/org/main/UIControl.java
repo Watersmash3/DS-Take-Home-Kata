@@ -1,13 +1,13 @@
 package org.main;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,8 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javafx.geometry.Pos.CENTER;
-import static javafx.geometry.Pos.CENTER_LEFT;
+import static javafx.geometry.Pos.*;
 import static javafx.scene.paint.Color.WHITE;
 
 public class UIControl {
@@ -54,10 +53,38 @@ public class UIControl {
         // Type Dropdown
         this.typeDropdown.getItems().addAll(typeList);
         this.typeDropdown.getSelectionModel().selectFirst();
+
+        AnchorPane.setBottomAnchor(this.quizVbox, 0.0);
+        AnchorPane.setTopAnchor(this.quizVbox, 0.0);
+        AnchorPane.setRightAnchor(this.quizVbox, 0.0);
+        AnchorPane.setLeftAnchor(this.quizVbox, 0.0);
     }
 
     public void createQuiz(Quiz quiz) throws IOException {
-        VBox newQuizVBox = new VBox();
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setStyle("-fx-background-color: #201f21;");
+
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.setStyle("-fx-background-color: #201f21;");
+        anchorPane.setPrefWidth(1020);
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(TOP_CENTER);
+        hBox.setMinWidth(1920);
+        AnchorPane.setBottomAnchor(hBox, 0.0);
+        AnchorPane.setTopAnchor(hBox, 0.0);
+        AnchorPane.setRightAnchor(hBox, 0.0);
+        AnchorPane.setLeftAnchor(hBox, 0.0);
+
+        scrollPane.setContent(anchorPane);
+        anchorPane.getChildren().add(hBox);
+
+        VBox quizBox = new VBox();
+        quizBox.setAlignment(CENTER);
+        quizBox.setPrefWidth(832);
+
+        hBox.getChildren().add(quizBox);
 
         List<Question> questions = quiz.getQuestionList();
 
@@ -74,18 +101,19 @@ public class UIControl {
             Text questionText = createQuestionText(question.getQuestion());
             questionVBox.getChildren().add(questionText);
 
-            HBox radioButtonsHBox = createRadioButtonHBox(question.getType(), question);
+            HBox radioButtonsHBox = createRadioButtonHBox(question.getType(), questionUIManager);
 
             questionVBox.getChildren().add(radioButtonsHBox);
 
-            quizVbox.getChildren().add(questionHBox);
+            quizBox.getChildren().add(questionHBox);
             questionUIManagers.add(questionUIManager);
         }
 
-        this.quizVbox = newQuizVBox;
+        this.quizVbox.getChildren().clear();
+        this.quizVbox.getChildren().add(scrollPane);
     }
 
-    private HBox createRadioButtonHBox(String type, Question question) {
+    private HBox createRadioButtonHBox(String type, QuestionUIManager questionUIManager) {
         HBox hbox = new HBox();
         hbox.setPrefWidth(830);
         hbox.setPrefHeight(80);
@@ -115,18 +143,18 @@ public class UIControl {
         stackPane2.getChildren().add(vbox2);
 
         if (type.equals("boolean")) {
-            RadioButton radioButton1 = createRadioButton("True", toggleGroup);
+            RadioButton radioButton1 = createRadioButton("True", toggleGroup, questionUIManager);
             vbox.getChildren().add(radioButton1);
-            RadioButton radioButton2 = createRadioButton("False", toggleGroup);
+            RadioButton radioButton2 = createRadioButton("False", toggleGroup, questionUIManager);
             vbox2.getChildren().add(radioButton2);
         } else {
-            RadioButton radioButton3 = createRadioButton(question.getPossibleAnswers().get(0), toggleGroup);
+            RadioButton radioButton3 = createRadioButton(questionUIManager.getQuestion().getPossibleAnswers().get(0), toggleGroup, questionUIManager);
             vbox.getChildren().add(radioButton3);
-            RadioButton radioButton4 = createRadioButton(question.getPossibleAnswers().get(1), toggleGroup);
+            RadioButton radioButton4 = createRadioButton(questionUIManager.getQuestion().getPossibleAnswers().get(1), toggleGroup, questionUIManager);
             vbox.getChildren().add(radioButton4);
-            RadioButton radioButton5 = createRadioButton(question.getPossibleAnswers().get(2), toggleGroup);
+            RadioButton radioButton5 = createRadioButton(questionUIManager.getQuestion().getPossibleAnswers().get(2), toggleGroup, questionUIManager);
             vbox2.getChildren().add(radioButton5);
-            RadioButton radioButton6 = createRadioButton(question.getPossibleAnswers().get(3), toggleGroup);
+            RadioButton radioButton6 = createRadioButton(questionUIManager.getQuestion().getPossibleAnswers().get(3), toggleGroup, questionUIManager);
             vbox2.getChildren().add(radioButton6);
         }
 
@@ -135,7 +163,7 @@ public class UIControl {
         return hbox;
     }
 
-    private RadioButton createRadioButton(String s, ToggleGroup toggleGroup) {
+    private RadioButton createRadioButton(String s, ToggleGroup toggleGroup, QuestionUIManager questionUIManager) {
         RadioButton radioButton = new RadioButton();
         radioButton.setText(s);
         radioButton.setPrefHeight(35);
@@ -143,6 +171,27 @@ public class UIControl {
         radioButton.setTextFill(WHITE);
         radioButton.setWrapText(true);
         radioButton.setToggleGroup(toggleGroup);
+        radioButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("test");
+                HBox hBox = new HBox();
+                hBox.setPrefWidth(684);
+                hBox.setPrefHeight(100);
+                hBox.setAlignment(CENTER);
+
+                if (radioButton.getText().equals(questionUIManager.getQuestion().getCorrectAnswer())) {
+                    hBox.setStyle("-fx-background-color: #21a332");
+                    Text text = new Text("Correct");
+                    hBox.getChildren().add(text);
+                } else {
+                    hBox.setStyle("-fx-background-color: #eb4034");
+                    Text text = new Text("Incorrect");
+                    hBox.getChildren().add(text);
+                }
+                questionUIManager.setQuestionHBox(hBox);
+            }
+        });
 
         return radioButton;
     }
