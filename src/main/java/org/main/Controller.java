@@ -1,7 +1,6 @@
 package org.main;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -13,10 +12,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class Controller {
-    // FXML Elements --
-    // Quiz Dropdown Boxes
-    @FXML
-    private Stage stage;
     @FXML
     private ComboBox<String> numberOfQuestionsDropdown;
     @FXML
@@ -26,13 +21,15 @@ public class Controller {
     @FXML
     private ComboBox<String> typeDropdown;
     @FXML
-    private Button startGameButton;
-    @FXML
     private VBox quizVbox;
     private List<ComboBox> comboBoxList;
     private UIControl uiControl;
     private boolean mainMenuInit = false;
 
+    /**
+     * Initializes the controller.
+     * @throws IOException if an I/O error occurs.
+     */
     @FXML
     public void initialize() throws IOException {
         this.uiControl = new UIControl();
@@ -51,22 +48,12 @@ public class Controller {
             this.uiControl.initializeMainMenu();
             mainMenuInit = true;
         }
-
-
-
-//        URL url = new URL("https://opentdb.com/api_category.php");
-//        try (InputStream is = url.openStream(); JsonReader rdr = Json.createReader(is)) {
-//            JsonObject obj = rdr.readObject();
-//            JsonArray results = obj.getJsonArray("trivia_categories");
-//            for (JsonObject result : results.getValuesAs(JsonObject.class)) {
-//                System.out.println("------------");
-//                System.out.println(result.getJsonNumber("id"));
-//                System.out.println(result.getString("name"));
-//                System.out.println("------------");
-//            }
-//        }
     }
 
+    /**
+     * Starts the game by creating a quiz based on selected options.
+     * @throws IOException if an I/O error occurs.
+     */
     @FXML
     public void startGame() throws IOException {
         URL quizAPIURL = QuizAPIParser.createAPIURL(
@@ -77,23 +64,28 @@ public class Controller {
 
         Quiz quiz = new Quiz(quizAPIURL);
         this.uiControl.createQuiz(quiz);
-        // Create Quiz by passing in the url to quiz
-
-        // Pass quiz into UI to create the quiz
-
-        // Send UI the stage to change to the quiz screen.
-        // Send quiz into the UI to create the Quiz UI
     }
 
+    /**
+     * Initializes the UI control.
+     */
     public void uiInitialize() {
         this.uiControl.setController(this);
         this.uiControl.setQuizVbox(this.quizVbox);
     }
 
+    /**
+     * Retrieves the list of categories from the quiz API parser.
+     * @return the list of categories.
+     */
     public Collection<? extends String> getCategoryList() {
         return QuizAPIParser.getCategoryList();
     }
 
+    /**
+     * Sets the stage for the controller.
+     * @param stage the JavaFX stage.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
