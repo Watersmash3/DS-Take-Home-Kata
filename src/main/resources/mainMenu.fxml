@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="684.0" style="-fx-background-color: #201f21;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.Controller">
+   <children>
+      <VBox alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #201f21;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz">
+               <font>
+                  <Font name="Comic Sans MS" size="50.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Questions: ">
+                           <font>
+                              <Font name="Comic Sans MS" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="numberOfQuestionsDropdown" prefHeight="35.0" prefWidth="180.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Category:">
+                           <font>
+                              <Font name="Comic Sans MS" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="categoryDropdown" prefHeight="35.0" prefWidth="180.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty: ">
+                           <font>
+                              <Font name="Comic Sans MS" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="difficultyDropdown" prefHeight="35.0" prefWidth="180.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
+                           <font>
+                              <Font name="Comic Sans MS" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </StackPane>
+                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="typeDropdown" prefHeight="35.0" prefWidth="180.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <StackPane prefHeight="49.0" prefWidth="148.0">
+               <children>
+                  <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="38.0" stroke="BLACK" strokeLineCap="ROUND" strokeMiterLimit="1000.0" strokeType="OUTSIDE" width="158.0" />
+                  <Button fx:id="startGameButton" alignment="TOP_CENTER" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#startGame" onMouseClicked="#startGame" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #201f21;" text="Start Game" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -16,9 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("/helloWorld.fxml"));
+        Parent root = fxmlLoader.load(getClass().getResource("/mainMenu.fxml"));
         Scene scene = new Scene(root);
-        mainStage =  stage;
         stage.setScene(scene);
         stage.show();
         stage.setMaximized(true);
