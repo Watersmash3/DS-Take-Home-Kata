@@ -81,12 +81,4 @@ public class Controller {
     public Collection<? extends String> getCategoryList() {
         return QuizAPIParser.getCategoryList();
     }
-
-    /**
-     * Sets the stage for the controller.
-     * @param stage the JavaFX stage.
-     */
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 }
