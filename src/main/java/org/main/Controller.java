@@ -3,6 +3,7 @@ package org.main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,8 +27,12 @@ public class Controller {
     private ComboBox<String> typeDropdown;
     @FXML
     private Button startGameButton;
+    @FXML
+    private VBox quizVbox;
     private List<ComboBox> comboBoxList;
     private UIControl uiControl;
+    private boolean mainMenuInit = false;
+
     @FXML
     public void initialize() throws IOException {
         this.uiControl = new UIControl();
@@ -42,7 +47,12 @@ public class Controller {
 
         this.uiControl.setComboBoxList(comboBoxList);
 
-        this.uiControl.initializeMainMenu();
+        if (!mainMenuInit) {
+            this.uiControl.initializeMainMenu();
+            mainMenuInit = true;
+        }
+
+
 
 //        URL url = new URL("https://opentdb.com/api_category.php");
 //        try (InputStream is = url.openStream(); JsonReader rdr = Json.createReader(is)) {
@@ -58,13 +68,15 @@ public class Controller {
     }
 
     @FXML
-    public void startGame() {
+    public void startGame() throws IOException {
         URL quizAPIURL = QuizAPIParser.createAPIURL(
             this.uiControl.getQuestionsValue(),
             this.uiControl.getCategoryValue(),
             this.uiControl.getDifficultyValue(),
             this.uiControl.getTypeValue());
 
+        Quiz quiz = new Quiz(quizAPIURL);
+        this.uiControl.createQuiz(quiz);
         // Create Quiz by passing in the url to quiz
 
         // Pass quiz into UI to create the quiz
@@ -75,6 +87,7 @@ public class Controller {
 
     public void uiInitialize() {
         this.uiControl.setController(this);
+        this.uiControl.setQuizVbox(this.quizVbox);
     }
 
     public Collection<? extends String> getCategoryList() {

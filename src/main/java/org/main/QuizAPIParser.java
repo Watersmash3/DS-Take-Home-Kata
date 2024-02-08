@@ -1,9 +1,6 @@
 package org.main;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+import javax.json.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -75,5 +72,39 @@ public class QuizAPIParser {
 
     private boolean checkQuizParameters(String numberOfQuestions, String category, String difficulty, String type) {
         return false;
+    }
+
+    public static List<Question> getQuestionsFromAPI(URL apiURL) {
+        List<Question> questionList = new ArrayList<>();
+        try {
+            try (InputStream is = apiURL.openStream(); JsonReader reader = Json.createReader(is)) {
+                JsonObject jsonObject = reader.readObject();
+                int responseCode = jsonObject.getInt("response_code");
+                if (responseCode == 0) {
+                    JsonArray results = jsonObject.getJsonArray("results");
+                    for (JsonObject result : results.getValuesAs(JsonObject.class)) {
+                        String type = result.getString("type");
+                        String difficulty = result.getString("difficulty");
+                        String category = result.getString("category");
+                        String question = result.getString("question");
+                        String correctAnswer = result.getString("correct_answer");
+                        List<String> possibleAnswers = new ArrayList<>();
+                        possibleAnswers.add(correctAnswer);
+                        JsonArray answersArr = result.getJsonArray("incorrect_answers");
+                        for (JsonString answer : answersArr.getValuesAs(JsonString.class)) {
+                            possibleAnswers.add(answer.toString());
+                        }
+                        questionList.add(new Question(question, type, difficulty, category, correctAnswer, possibleAnswers));
+                    }
+                } else {
+                    UIControl.createAlert("There was a problem creating the quiz", true);
+                }
+            }
+        } catch (MalformedURLException e) {
+            UIControl.createAlert("There was a problem fetching the Quiz API", true);
+        } catch (IOException e) {
+            UIControl.createAlert("There was a problem opening the Quiz API link", true);
+        }
+        return questionList;
     }
 }

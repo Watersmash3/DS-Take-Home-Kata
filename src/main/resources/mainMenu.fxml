@@ -12,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="684.0" style="-fx-background-color: #201f21;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.Controller">
    <children>
-      <VBox alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #201f21;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="quizVbox" alignment="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="515.0" prefWidth="600.0" style="-fx-background-color: #201f21;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quiz">
                <font>
@@ -94,7 +94,7 @@
             <StackPane prefHeight="49.0" prefWidth="148.0">
                <children>
                   <Rectangle arcHeight="8.0" arcWidth="8.0" fill="WHITE" height="38.0" stroke="BLACK" strokeLineCap="ROUND" strokeMiterLimit="1000.0" strokeType="OUTSIDE" width="158.0" />
-                  <Button fx:id="startGameButton" alignment="TOP_CENTER" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onAction="#startGame" onMouseClicked="#startGame" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #201f21;" text="Start Game" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
+                  <Button fx:id="startGameButton" alignment="TOP_CENTER" maxHeight="30.0" maxWidth="150.0" minHeight="30.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#startGame" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #201f21;" text="Start Game" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="CENTER">
                      <font>
                         <Font size="16.0" />
                      </font>
